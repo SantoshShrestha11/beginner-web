@@ -21,11 +21,11 @@
   <span> this is the spand</span>
   <blockquote cite="">
     here
-  </blockquote><br>
+  </blockquote>
   <b> this tesxt should be bold </b>
-  <br>
+
   <i> this text is italix </i>
-  <br>
+
   <em> this text is alternat italic</em>
   <!-- discounting  -->
   <del>2000 </del>4000
@@ -40,26 +40,6 @@
     <!-- u will make the text underlined  -->
     <center> this text has to be in center </center>
     text has some space &nbsp; &nbsp; &nbsp; here is text in middle &nbsp; &nbsp; this
-    <!-- ye la khali thau dinxa -->
-    <address>
-      here , 5 earth
-    </address>
-    <!-- use dive section  -->
-    <div>
-      this is sectin here made by div
-    </div>
-    <section>
-      this is section here made by section
-    </section>
-    <main>
-      this is section here made by main
-    </main>
-    <article>
-      <p> this is the paragraph that i made my me for dummy data here i cn use the lorem here but i am feeling the dummy
-        data here </p>
-    </article>
-
-    <!-- the use the div section in place of br-->
 
 </body>
 
