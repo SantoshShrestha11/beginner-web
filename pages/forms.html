@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>form page</title>
+</head>
+
+<body>
+  <form action="./forms_information.html" method="post">
+    <label for="">first name</label>
+    <input type="text" placeholder="first name" name="fName" maxlength="22" minlength="12" required value="ram" />
+    <!-- here value is used to set the default value of the input field -->
+    <label for="">sur name</label>
+    <!-- here the lable in not that important -->
+    <input type="text" placeholder="Surname" name="sName" maxlength="22" minlength="12" required />
+
+    <label for="password">password</label>
+    <input type="password" placeholder="Enter your password" name="password" maxlength="22" minlength="8" required />
+
+    <label for="email">email</label>
+    <input type="email" placeholder="xyz@gmail.com" name="email" required />
+
+    <label for="website">Social Links</label>
+    <input type="url" placeholder="www.facebook.com/hero" value="" readonly required />
+    <!-- when we use the read only it will not allow the user to edit the value of the input field -->
+    <!-- or we can use the disable  that will just disable it -->
+
+    <lable for="color">color</lable>
+    <input type="color" placeholder="color" required />
+
+    <lable for="file">file</lable>
+    <input type="file" placeholder="file" required />
+
+    <lable for="date">Date of Birth</lable>
+    <input type="date" name="date" required />
+
+    <lable for="number">Number</lable>
+    <input type="number" name="number" placeholder="enter a number" required />
+    <br />
+
+    <lable for="cleck box">cloose a coutry</lable>
+    <input type="checkbox" name="checkbox" /> USA
+    <input type="checkbox" name="checkbox" /> Japan
+    <input type="checkbox" name="checkbox" /> India
+    <input type="checkbox" name="checkbox" /> Nepal
+    <input type="checkbox" name="checkbox" /> Australia
+    <input type="checkbox" name="checkbox" /> America
+
+    <br />
+
+    <fieldset>
+      <legend>Countries<legend>
+          <input type="radio" name="country" /> USA
+          <input type="radio" name="country" /> Japan
+          <input type="radio" name="country" /> India
+          <input type="radio" name="country" /> Nepal
+          <input type="radio" name="country" /> Australia
+          <input type="radio" name="country" /> America
+    </fieldset>
+    <br />
+    <label for="range">range</label>
+    <input type="range" value="30" />
+
+    <br />
+
+    <input type="week" name="week" />
+    <input type="month" name="month" />
+    <input type="datetime-local" name="datetime" />
+    <input type="tel" name="tel" placeholder="9800000000" />
+    <input type="hidden" name="this is hidden" />
+    <input type="reset" value="reset" />
+    <!-- you can keep the placeholder in the tel  -->
+    <!-- <input type="submit" value="submit" /> -->
+    <br />
+
+    <select name="faculty">
+      <option value="" selected>Select a faculty</option>
+      <option value="">BCA</option>
+      <option value="">CSIT</option>
+      <option value="">BSc</option>
+      <option value="">BSc in Biology</option>
+      <option value="">BIT</option>
+      <option value="" disabled>BBA</option>
+    </select>
+
+    <textarea name="desc" id="desc" cols="150" rows="20" placeholder="description here">
+    </textarea>
+
+    <button type="reset">reset</button>
+    <button type="submit">submit</button>
+  </form>
+</body>
+
+</html>
