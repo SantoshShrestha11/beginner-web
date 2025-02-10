@@ -27,6 +27,13 @@ h2 {
     color: voilet;
     background-color: black;
   }
+
+/* grouping selector */
 th , td{
   padding: 10px;
+}
+/* parent child selector  */
+.parent .child{
+  background-color: red;
+  color:white;
 }
