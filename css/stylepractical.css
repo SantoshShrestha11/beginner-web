@@ -46,9 +46,25 @@ th , td{
 }
 .psudo button:hover {
   background-color: white;
+  border-radius: 20px;
   color: black;
+  margin: 10px;
+  padding: 8px 20px;
 }
+
 
 a:visited {
   color: green;
+}
+a:active{
+  color: green;
+}
+a:link{
+  color: brown;;
+}
+p:before{
+  content: "This is before content";
+}
+p:after{
+  content: "This is after content";
 }
