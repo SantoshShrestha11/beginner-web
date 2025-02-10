@@ -33,7 +33,22 @@ th , td{
   padding: 10px;
 }
 /* parent child selector  */
-.parent .child{
+.parent > .child > .grand-child {
   background-color: red;
   color:white;
+}
+.psudo button{
+  margin: 10px;
+  padding: 8px 20px;
+  color: white;
+  background-color: black;
+  border-radius: 20px;
+}
+.psudo button:hover {
+  background-color: white;
+  color: black;
+}
+
+a:visited {
+  color: green;
 }
