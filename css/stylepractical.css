@@ -1,0 +1,32 @@
+/* this is universal selector  */
+* {
+  margin: 0;
+  padding: 0;
+  background-color: grey;
+  box-sizing: border-box;
+  font: 16px Arial, sans-serif;
+}
+
+h1 {
+  background-color: black;
+  color: white;
+
+};
+
+h2 {
+  color: red;
+  background-color: gold;
+};
+
+.internal {
+  color: white;
+  background-color: lightsalmon;
+}
+
+  #internal {
+    color: voilet;
+    background-color: black;
+  }
+th , td{
+  padding: 10px;
+}
