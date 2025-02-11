@@ -1,0 +1,82 @@
+*{
+  background-color:grey;
+  /* padding: 0; */
+  /* margin: 0; */
+  /* background-image: url(../assets/images/bg_image.webp); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+p:first-child {
+  color: lightblue;
+}
+
+p:last-child{
+  color:red;
+}
+p:nth-child(even) {
+  
+  color: red;
+}
+table {
+  border: red;
+}
+table tr:nth-child(even) {
+  color: red;
+}
+/* table tr:nth-child(odd) { */
+/*   background-color:lightgray; */
+/* } */
+/**/
+
+p::first-line{
+  font-size: 20px;
+}
+p::first-letter{
+  font-size: 42px;
+  color: black;
+}
+p::selection{
+  color: limegreen;
+}
+section ul li::marker{
+  content: ">";
+  color: red;
+}
+.imagetest{
+  background-image: url(../assets/images/bg_image.webp);
+  height: 100vh;
+
+  /* here 100vh is the full height of the screen */
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-size:auto;
+  /* background-position: left; */
+  /* background-position:right; */
+  /* background-position: top; */
+  /* background-position: bottom; */
+  background-attachment: fixed;
+}
+.textstyle p{
+  text-align: center;
+  text-align: end;
+  text-align: justify;
+  color: white;
+  /* text-decoration: line-through; */
+  /* text-decoration: underline; */
+  /* text-decoration: dotted; */
+  /* text-decoration: solid; */
+  /* text-decoration: peru; */
+  /* text-decoration: none; */
+  text-indent: 20px;
+  /* text-shadow: 2px 2px 5px rgb(123, 122, 122); */
+  text-transform: capitalize;
+  text-shadow: 2px 2px 5px red;
+  text-wrap: wrap;
+  text-overflow: clip;
+  text-overflow: clip;
+  /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+  font-family: "JetBrains Mono", serif;
+  font-optical-sizing: auto;
+}
+
