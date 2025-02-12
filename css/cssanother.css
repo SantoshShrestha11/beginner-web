@@ -78,5 +78,11 @@ section ul li::marker{
   /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
   font-family: "JetBrains Mono", serif;
   font-optical-sizing: auto;
+  /* font-weight: 400; */
+  font-weight: bolder;
+  font-style: italic;
+  /* font-style: none; */
+  /* font-style: oblique; */
+  word-wrap:break-word;
 }
 
