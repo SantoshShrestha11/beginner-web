@@ -121,5 +121,44 @@ section ul li::marker{
   border: 1px solid white;
   margin: 20px;
   /* padding for inside and the marigin for outside  */
-  padding: 20px;
+  /* padding: 20px; */
+  border-radius: 50px;
+  background-color: black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 40px;
+  padding-left: 50px;
+  box-shadow: 2px 4px 3px 5px white;
+  box-shadow: inset 2px 4px 3px 5px red;
+  box-shadow:inset 2px 4px 3px 5px red, 2px 4px 3px 5px blue;
+  box-shadow: 2px 4px 3px 5px red, 2px 4px 3px 5px blue;
+  box-shadow: 2px 4px 3px 5px red, 2px 4px 3px 5px blue, 2px 4px 3px 5px green;
 }
+
+.mainbox{
+  background-color: lightseagreen;
+  margin: 20px 10px;
+  padding: 20px 10px;
+}
+.boxone, .boxtwo, .boxthree, .boxfour, .boxfive{
+  background-color: lightseagreen;
+  margin: 20px 10px;
+}
+.mainbox .boxone {
+  background-color: lightcoral;
+}
+.mainbox .boxtwo {
+  background-color:lightpink;
+}
+.mainbox .boxthree {
+  background-color:lightblue;
+}
+.mainbox .boxfour {
+  background-color:lightgreen;
+}
+.mainbox .boxfive {
+  background-color:lightyellow;
+}
+
+
+
