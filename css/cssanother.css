@@ -99,12 +99,27 @@ section ul li::marker{
   border: 1px solid white;
   /* so he value starts from the top and then right then bottom and then left  */
   /* it moves clock wise here  */
+  /* margin lines in the oter sider of the box here  */
   /* margin: 20px; */
   /* margin 20px 20px 20px 20px; */
   /* margin: 20px 20px 20px; */
   /* margin: 20px 20px; */
   /* margin: 20px; */
   /* padding also works in kinda similar way here like that it did in the previous way */
-  padding: 20px;
+  /* padding lies in the inner side compared to that of the margin */
+  
+  /* padding: 10px 0px 1px 0px; */
+  /* yah it is kinda similar here  */
   padding: 20px 20px 20px 20px;
+}
+/* here we are refering to the inner box of the bigger box there  */
+/* .innerbox { */
+/* we can use the both way the parent child method here and the direct class method here */
+.boxmodel .innerbox {
+  width: 200px;
+  height: 200px;
+  border: 1px solid white;
+  margin: 20px;
+  /* padding for inside and the marigin for outside  */
+  padding: 20px;
 }
