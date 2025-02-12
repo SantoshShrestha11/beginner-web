@@ -99,11 +99,12 @@ section ul li::marker{
   border: 1px solid white;
   /* so he value starts from the top and then right then bottom and then left  */
   /* it moves clock wise here  */
-  margin: 20px;
-  margin 20px 20px 20px 20px;
-  margin: 20px 20px 20px;
-  margin: 20px 20px;
-  margin: 20px;
-  /* padding: 20px; */
-  /* padding: 20px 20px 20px 20px; */
+  /* margin: 20px; */
+  /* margin 20px 20px 20px 20px; */
+  /* margin: 20px 20px 20px; */
+  /* margin: 20px 20px; */
+  /* margin: 20px; */
+  /* padding also works in kinda similar way here like that it did in the previous way */
+  padding: 20px;
+  padding: 20px 20px 20px 20px;
 }
