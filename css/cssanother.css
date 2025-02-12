@@ -84,5 +84,6 @@ section ul li::marker{
   /* font-style: none; */
   /* font-style: oblique; */
   word-wrap:break-word;
+  word-break: break-all;
 }
 
