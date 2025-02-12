@@ -85,5 +85,25 @@ section ul li::marker{
   /* font-style: oblique; */
   word-wrap:break-word;
   word-break: break-all;
+  /* word-spacing: 20px; */
+  word-spacing: default;
+  line-height: 1.5;
+  /* line-break: anywhere; */
+  /* line-break: loose; */
+  /* line-break: normal; */
+  line-break:auto;
 }
 
+
+.boxmodel {
+  border: 1px solid white;
+  /* so he value starts from the top and then right then bottom and then left  */
+  /* it moves clock wise here  */
+  margin: 20px;
+  margin 20px 20px 20px 20px;
+  margin: 20px 20px 20px;
+  margin: 20px 20px;
+  margin: 20px;
+  /* padding: 20px; */
+  /* padding: 20px 20px 20px 20px; */
+}
