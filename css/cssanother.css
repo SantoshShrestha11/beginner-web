@@ -141,6 +141,16 @@ section ul li::marker{
   padding: 20px 10px;
   /* display: inline; */
   /* inline shrinks the card or box and it is not visible */
+
+  /* layout management property can be done with the use of the display flex */
+  /* single dimensional it flexes in the default as row */
+  display: flex;
+  flex-direction: column;
+  flex-direction:row-reverse;
+  /* flex-direction:row; */
+  /* flex-wrap: wrap; */
+  flex-wrap: wrap-reverse;
+
 }
 .boxone, .boxtwo, .boxthree, .boxfour, .boxfive{
   padding : 20px ;
@@ -154,8 +164,9 @@ section ul li::marker{
   display: inline-table;
   /* display: table; */
   /* display: none; */
-  display: contents;
-}
+  /* display: contents; */
+  /* thisline here will just show the contents with out andy  contetnts there  */
+ }
 .mainbox .boxone {
   background-color: lightcoral;
 }
