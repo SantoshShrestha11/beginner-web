@@ -145,11 +145,16 @@ section ul li::marker{
 .boxone, .boxtwo, .boxthree, .boxfour, .boxfive{
   padding : 20px ;
 
+
   background-color: lightseagreen;
   margin: 20px ;
   /* display: inline; */
   /* display: block; */
-  display: inline-block;
+  /* display: inline-block; */
+  display: inline-table;
+  /* display: table; */
+  /* display: none; */
+  display: contents;
 }
 .mainbox .boxone {
   background-color: lightcoral;
