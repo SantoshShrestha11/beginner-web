@@ -139,10 +139,17 @@ section ul li::marker{
   background-color: lightseagreen;
   margin: 20px 10px;
   padding: 20px 10px;
+  /* display: inline; */
+  /* inline shrinks the card or box and it is not visible */
 }
 .boxone, .boxtwo, .boxthree, .boxfour, .boxfive{
+  padding : 20px ;
+
   background-color: lightseagreen;
-  margin: 20px 10px;
+  margin: 20px ;
+  /* display: inline; */
+  /* display: block; */
+  display: inline-block;
 }
 .mainbox .boxone {
   background-color: lightcoral;
