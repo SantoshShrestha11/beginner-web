@@ -217,4 +217,38 @@ section ul li::marker{
 }
 
 
+.maincard{
+  background-color: lightseagreen;
+  margin: 20px 10px;
+  height: auto;
 
+}
+.cardtwo, .cardthree, .cardfour, .cardfive, .cardone{
+  margin: 20px ;
+  padding : 20px;
+ }
+
+.maincard .cardone{
+  background-color: lightcoral;
+}
+.maincard .cardtwo{
+  background-color:red;
+}
+
+.maincard .cardthree {
+  background-color:lightblue;
+  position: sticky;
+  top: 0;
+
+}
+
+.maincard .cardfour{
+  background-color:lightgreen;
+  position: relative;
+}
+.maincard .cardfive{
+  border: 20px ;
+  background-color:lightyellow;
+  position: absolute;
+  top: 0;
+}
