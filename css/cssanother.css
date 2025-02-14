@@ -235,8 +235,9 @@ section ul li::marker{
   background-color:red;
 }
 
-.maincard .cardthree {
+.main .cardthree {
   background-color:lightblue;
+
   position: sticky;
   top: 0;
 

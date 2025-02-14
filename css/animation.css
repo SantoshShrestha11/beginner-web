@@ -1,0 +1,119 @@
+.maincard{
+  background-color: lightgreen;
+  margin: 20px 10px;
+  position: relative;
+}
+
+.cardone, .cardtwo, .cardthree, .cardfour, .cardfive{
+  padding: 20px;
+  margin: 20px;
+
+}
+
+.maincard .cardone{
+  background-color: red;
+  position: relative;
+  top: 100px;
+  left: 100px
+  
+}
+.maincard .cardtwo {
+  background-color: lightblue;
+  position: fixed ;
+  top: 0;
+  left: 0;
+  
+}
+.maincard .cardthree {
+  background-color: wheat;
+
+  /* position: absolute; */
+  /* top: 0; */
+  left: 0;
+}
+.maincard .cardfour {
+  position: relative;
+  /* background-color: yellow; */
+  position: absolute;
+  left: 50;
+  right: 50;
+  top: 50px;
+  bottom: 50px;
+}
+.maincard .cardfive {
+  background-color: orange;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+}
+
+
+
+/* animations starts form here  */
+.animation{
+  display: flex;
+}
+
+.messenger{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 50%;
+  animation: facebook-messenger 2s infinite linear;
+}
+.messenger .fa-brands{
+  font-size: 20vh;
+}
+@keyframes facebook-messenger{
+0%{
+    /* transform: rotate(0deg); */
+  color:  white;
+  }
+50%{
+  /* transform: rotate(180deg); */
+  color: blue;
+}
+100%{
+    /* transform: rotate(360deg); */
+  color: blueviolet;
+  }
+  
+}
+
+
+
+.discord{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fa-discord 2s infinite linear;
+  height: 50vh;
+  width: 50%;
+}
+
+.discord .fa-brands{
+  font-size: 20vh;
+}
+@keyframes fa-discord{
+0%{
+  /* transform: rotate(0deg); */
+  color:  white;
+  }
+50%{
+  /* transform: rotate(180deg); */
+  color: blue;
+}
+100%{
+    /* transform: rotate(360deg); */
+  color:blue;
+  }
+  
+}
+.messenger a:hover{
+  color:blue;
+}
+.discord a:hover{
+  color:blue;
+}
