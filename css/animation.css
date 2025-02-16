@@ -100,14 +100,17 @@
 0%{
   /* transform: rotate(0deg); */
   color:  white;
+  opacity: .3;
   }
 50%{
   /* transform: rotate(180deg); */
   color: blue;
+  opacity: .3;
 }
 100%{
     /* transform: rotate(360deg); */
   color:blue;
+  opacity: .4;
   }
   
 }
@@ -116,4 +119,16 @@
 }
 .discord a:hover{
   color:blue;
+}
+
+
+.animate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  animation: move 5s linear;
 }
