@@ -1,0 +1,30 @@
+:root{
+  --primary-color: #ddd;
+  --secondary-color: #000;
+  --max-width: 1100px;
+  --background-color: #ffff;
+  /* you can also give the hex and rgb color */
+
+}
+
+.responsive {
+  background-color: black;
+  color: var(--primary-color);
+  height: 100vh;
+  
+}
+@media(max-width: 998px){
+.responsive{
+    background-color: blue;
+  }
+  .responsive img{
+  width: 300px;
+  height: 300px;
+  }
+
+}
+@media(max-width: 550px){
+  .responsive{
+    background-color: green;
+  }
+}

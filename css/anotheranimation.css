@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: center;
   background-color: lightgray;
-  height: 200px;
-  width: 200px;
+  /* height: 200px; */
+  /* width: 200px; */
   border-radius: 50%;
   animation: move 5s linear;
 }
@@ -14,43 +14,58 @@
   top: 0;
   left: 0;
   rotate: 20deg;
-    transform: rotate(0deg);
+    rotate:0deg;
+  height: 30px;
+  width: 30px;
   }
   10%{
   position:  absolute;
   top: 0;
   left: 10%;
-    transform: rotate(10deg);
+     rotate:10deg;
+  size: 30px;
+  height: 60px;
+  width: 60px;
   }
 20%{
   position:  absolute;
   top: 0;
   left: 20%;
-    transform: rotate(30deg);
+    rotate:30deg;
+  height: 80px;
+  width: 80px;
   }
 30%{
   position:  absolute;
   top: 0;
   left: 40%;
-    transform: rotate(50deg);
+   rotate:50deg;
+  height: 90px;
+  width: 90px;
   }
 50%{
   position:  absolute;
   top: 0;
   left: 60%;
-    transform: rotate(90deg);
+    transform: 90deg;
+  height: 100px;
+  width: 100px;
   }
 90%{
   position:  absolute;
   top: 0;
   left: 70%;
-    transform: rotate(120deg);
+  rotate: 120deg;
+  height: 130px;
+  width: 130px;
   }
 100%{
   position:  absolute;
   top: 0;
   left: 80%;
-    transform: rotate(160deg);
+  rotate: 160deg;
+  height: 180px;
+  width: 180px;
   }
 
 }
