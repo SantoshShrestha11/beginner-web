@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enhanced 3D Solar System</title>
+  <link rel="stylesheet" href="../css/solarsystem.css" />
+</head>
+
+<body>
+  <div class="controls">
+    <label>
+      <input type="checkbox" id="showOrbits" checked />
+      Show Orbits
+    </label>
+    <label>
+      <input type="checkbox" id="showLabels" checked />
+      Show Labels
+    </label>
+  </div>
+
+  <div class="stars">
+    <!-- Generate 100 stars with random positions -->
+    <script>
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 3}s`;
+        document.querySelector(".stars").appendChild(star);
+      }
+    </script>
+  </div>
+
+  <div class="solar-system">
+    <div class="sun"></div>
+
+    <div class="planet mercury" data-name="Mercury"></div>
+    <div class="planet venus" data-name="Venus"></div>
+    <div class="planet earth" data-name="Earth">
+      <div class="moon"></div>
+    </div>
+    <div class="planet mars" data-name="Mars"></div>
+
+    <div class="asteroid-belt">
+      <script>
+        for (let i = 0; i < 50; i++) {
+          const asteroid = document.createElement("div");
+          asteroid.className = "asteroid";
+          const angle = (i / 50) * 360;
+          asteroid.style.transform = `rotate(${angle}deg) translateX(300px)`;
+          asteroid.style.animationDelay = `${Math.random() * 2}s`;
+          document.querySelector(".asteroid-belt").appendChild(asteroid);
+        }
+      </script>
+    </div>
+
+    <div class="planet jupiter" data-name="Jupiter"></div>
+    <div class="planet saturn" data-name="Saturn"></div>
+    <div class="planet uranus" data-name="Uranus"></div>
+    <div class="planet neptune" data-name="Neptune"></div>
+
+    <!-- Generate orbits dynamically -->
+    <script>
+      const planets = document.querySelectorAll(".planet");
+      planets.forEach((planet) => {
+        const orbit = document.createElement("div");
+        orbit.className = "orbit";
+        const radius = getComputedStyle(planet).getPropertyValue("--radius");
+        orbit.style.width = `${parseInt(radius) * 2}px`;
+        orbit.style.height = `${parseInt(radius) * 2}px`;
+        document.querySelector(".solar-system").appendChild(orbit);
+      });
+
+      // Controls functionality
+      document
+        .getElementById("showOrbits")
+        .addEventListener("change", (e) => {
+          document.querySelectorAll(".orbit").forEach((orbit) => {
+            orbit.style.opacity = e.target.checked ? 1 : 0;
+          });
+        });
+
+      document
+        .getElementById("showLabels")
+        .addEventListener("change", (e) => {
+          document.querySelectorAll(".planet").forEach((planet) => {
+            planet.style.setProperty(
+              "--label-opacity",
+              e.target.checked ? 1 : 0,
+            );
+          });
+        });
+    </script>
+  </div>
+</body>
+
+</html>

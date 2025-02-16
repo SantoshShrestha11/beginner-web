@@ -1,0 +1,283 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: radial-gradient(circle at center,
+    #1a1a2e 0%,
+    #16213e 50%,
+    #0f172a 100%);
+  overflow: hidden;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+.controls {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  color: white;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.controls label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.solar-system {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  transform-style: preserve-3d;
+  perspective: 1500px;
+}
+
+.sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at center,
+    #fff6e5 0%,
+    #ffd700 20%,
+    #ff8c00 40%,
+    #ff4500 60%,
+    #8b0000 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 120px #ff4500,
+    0 0 60px #ff8c00,
+    0 0 30px #ffd700;
+  animation: glow 4s ease-in-out infinite alternate;
+}
+
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotateX(75deg);
+  transition: opacity 0.3s ease;
+}
+
+.planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  animation: orbit linear infinite;
+  transition: all 0.3s ease;
+}
+
+.planet::before {
+  content: attr(data-name);
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.planet:hover::before {
+  opacity: 1;
+}
+
+/* Enhanced planet styles with textures */
+.mercury {
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(#8b4513, #a0522d);
+  --radius: 120px;
+  animation-duration: 8s;
+}
+
+.venus {
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(#deb887, #d2691e);
+  --radius: 160px;
+  animation-duration: 12s;
+}
+
+.earth {
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(#4169e1, #000080);
+  --radius: 220px;
+  animation-duration: 16s;
+}
+
+.mars {
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(#cd5c5c, #8b0000);
+  --radius: 280px;
+  animation-duration: 20s;
+}
+
+.jupiter {
+  width: 50px;
+  height: 50px;
+  background: repeating-linear-gradient(45deg,
+    #daa520,
+    #cd853f 10px,
+    #b8860b 10px,
+    #d2691e 20px);
+  --radius: 380px;
+  animation-duration: 28s;
+}
+
+.saturn {
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(#f4a460, #cd853f);
+  --radius: 480px;
+  animation-duration: 34s;
+}
+
+.saturn::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  background: transparent;
+  border: 4px solid rgba(210, 180, 140, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotateX(75deg);
+  top: 50%;
+  left: 50%;
+  box-shadow: inset 0 0 20px rgba(210, 180, 140, 0.3);
+}
+
+.uranus {
+  width: 28px;
+  height: 28px;
+  background: radial-gradient(#87ceeb, #4682b4);
+  --radius: 560px;
+  animation-duration: 40s;
+}
+
+.neptune {
+  width: 26px;
+  height: 26px;
+  background: radial-gradient(#1e90ff, #0000cd);
+  --radius: 640px;
+  animation-duration: 46s;
+}
+
+.moon {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(#d3d3d3, #a9a9a9);
+  border-radius: 50%;
+  animation: moon-orbit linear 4s infinite;
+}
+
+.asteroid-belt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  transform: translate(-50%, -50%) rotateX(75deg);
+}
+
+.asteroid {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(169, 169, 169, 0.6);
+  border-radius: 50%;
+  animation: twinkle 1s infinite alternate;
+}
+
+/* Generate 50 random asteroids */
+@keyframes generateAsteroids {
+from {
+  transform: rotate(0deg) translateX(300px) rotate(0deg);
+}
+
+to {
+  transform: rotate(360deg) translateX(300px) rotate(-360deg);
+}
+}
+
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite alternate;
+}
+
+@keyframes orbit {
+from {
+  transform: rotate(0deg) translateX(var(--radius)) rotate(0deg);
+}
+
+to {
+  transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg);
+}
+}
+
+@keyframes moon-orbit {
+from {
+  transform: rotate(0deg) translateX(30px) rotate(0deg);
+}
+
+to {
+  transform: rotate(360deg) translateX(30px) rotate(-360deg);
+}
+}
+
+@keyframes glow {
+from {
+  box-shadow:
+    0 0 80px #ff4500,
+    0 0 40px #ff8c00,
+    0 0 20px #ffd700;
+}
+
+to {
+  box-shadow:
+    0 0 160px #ff4500,
+    0 0 80px #ff8c00,
+    0 0 40px #ffd700;
+}
+}
+
+@keyframes twinkle {
+from {
+  opacity: 0.2;
+}
+
+to {
+  opacity: 1;
+}
+}
+

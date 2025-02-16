@@ -1,31 +1,434 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>test</title>
-    <link href="../css/test.css" rel="stylesheet" />
-  </head>
 
-  <body>
-    <blockquote>
-      <li class="menu-item">
-        <span class="item-icon">
-          <i class="bx bxs-dashboard"></i>
-        </span>
-        <span class="item-txt">dashboard</span>
-      </li>
-    </blockquote>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Solar System Simulation</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <div>
-      <form action="../something.txt">
-        <label for="fname">First name:</label><br />
-        <input type="text" id="fname" name="fname" /><br />
-        <label for="lname">Last name:</label><br />
-        <input type="text" id="lname" name="lname" />
-      </form>
-    </div>
+    body {
+      overflow: hidden;
+      background: #000;
+    }
 
-    div
-  </body>
+    canvas {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .controls {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      color: white;
+      z-index: 1000;
+      font-family: Arial, sans-serif;
+      backdrop-filter: blur(5px);
+    }
+
+    .planet-info {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      color: white;
+      z-index: 1000;
+      font-family: Arial, sans-serif;
+      max-width: 300px;
+      backdrop-filter: blur(5px);
+      display: none;
+    }
+
+    .loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 24px;
+      font-family: Arial, sans-serif;
+    }
+
+    .tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="controls">
+    <label><input type="checkbox" id="showOrbits" checked /> Orbits</label>
+    <label><input type="checkbox" id="autoRotate" checked /> Auto-Rotate</label>
+    <label>Speed:
+      <input type="range" id="speed" min="0.1" max="10" step="0.1" value="1" /></label>
+  </div>
+  <div class="planet-info" id="planetInfo">
+    <h3 id="planetName"></h3>
+    <p id="planetDetails"></p>
+  </div>
+  <div class="loading" id="loading">Loading...</div>
+  <div class="tooltip" id="tooltip"></div>
+
+  <script>
+    let scene, camera, renderer, controls;
+    let planets = new Map();
+    let orbits = new Map();
+    let autoRotate = true;
+    let simulationSpeed = 1;
+    let textureLoader = new THREE.TextureLoader();
+    let raycaster = new THREE.Raycaster();
+    let mouse = new THREE.Vector2();
+
+    const SCALE_FACTOR = 1 / 1000;
+    const AU = 149.6e6 * SCALE_FACTOR; // Astronomical Unit scaled down
+
+    const planetData = [
+      {
+        name: "Sun",
+        radius: 695700 * SCALE_FACTOR,
+        texture:
+          "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/sun.jpg",
+        type: "star",
+      },
+      {
+        name: "Mercury",
+        radius: 2439.7 * SCALE_FACTOR,
+        distance: 0.387 * AU,
+        speed: 1.607,
+        texture:
+          "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/mercury.jpg",
+        tilt: 0.034,
+      },
+      {
+        name: "Venus",
+        radius: 6051.8 * SCALE_FACTOR,
+        distance: 0.723 * AU,
+        speed: 1.174,
+        texture:
+          "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/venus.jpg",
+        tilt: 177.4,
+      },
+      {
+        name: "Earth",
+        radius: 6371 * SCALE_FACTOR,
+        distance: 1 * AU,
+        speed: 1,
+        texture:
+          "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg",
+        tilt: 23.4,
+        moon: {
+          distance: 384400 * SCALE_FACTOR,
+          radius: 1737.4 * SCALE_FACTOR,
+          speed: 13.37,
+        },
+      },
+      {
+        name: "Mars",
+        radius: 3389.5 * SCALE_FACTOR,
+        distance: 1.524 * AU,
+        speed: 0.802,
+        texture:
+          "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/mars.jpg",
+        tilt: 25.2,
+      },
+      {
+        name: "Jupiter",
+        radius: 69911 * SCALE_FACTOR,
+        distance: 5.204 * AU,
+        speed: 0.434,
+        texture:
+          "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/jupiter.jpg",
+        tilt: 3.1,
+      },
+      {
+        name: "Saturn",
+        radius: 58232 * SCALE_FACTOR,
+        distance: 9.582 * AU,
+        speed: 0.323,
+        texture:
+          "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/saturn.jpg",
+        rings: {
+          inner: 74500 * SCALE_FACTOR,
+          outer: 140200 * SCALE_FACTOR,
+          texture:
+            "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/saturn_ring.png",
+        },
+        tilt: 26.7,
+      },
+      {
+        name: "Uranus",
+        radius: 25362 * SCALE_FACTOR,
+        distance: 19.229 * AU,
+        speed: 0.228,
+        texture:
+          "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/uranus.jpg",
+        tilt: 97.8,
+      },
+      {
+        name: "Neptune",
+        radius: 24622 * SCALE_FACTOR,
+        distance: 30.104 * AU,
+        speed: 0.182,
+        texture:
+          "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/neptune.jpg",
+        tilt: 28.3,
+      },
+    ];
+
+    async function init() {
+      // Setup scene
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000,
+      );
+      renderer = new THREE.WebGLRenderer({antialias: true});
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // Add camera controls
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+
+      // Add lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+      scene.add(ambientLight);
+
+      // Create stars background
+      createStarField();
+
+      // Load textures and create celestial bodies
+      await createSun();
+      await Promise.all(planetData.slice(1).map(createPlanet));
+
+      // Set initial camera position
+      camera.position.set(0, 50 * AU, 100 * AU);
+      controls.update();
+
+      // Event listeners
+      setupEventListeners();
+
+      // Hide loading screen
+      document.getElementById("loading").remove();
+
+      animate();
+    }
+
+    async function createSun() {
+      const data = planetData[0];
+      const texture = await textureLoader.loadAsync(data.texture);
+
+      const sun = new THREE.Mesh(
+        new THREE.SphereGeometry(data.radius, 32, 32),
+        new THREE.MeshBasicMaterial({map: texture}),
+      );
+
+      // Add sun glow
+      const glow = new THREE.PointLight(0xffffee, 2, AU * 50);
+      sun.add(glow);
+      scene.add(sun);
+      planets.set(data.name, sun);
+    }
+
+    async function createPlanet(data) {
+      // Load texture
+      const texture = await textureLoader.loadAsync(data.texture);
+
+      // Create planet
+      const planet = new THREE.Mesh(
+        new THREE.SphereGeometry(data.radius, 32, 32),
+        new THREE.MeshPhongMaterial({map: texture}),
+      );
+
+      // Set initial position
+      planet.position.x = data.distance;
+
+      // Add axial tilt
+      planet.rotation.z = THREE.MathUtils.degToRad(data.tilt);
+
+      // Create orbit path
+      const orbit = new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints(
+          Array(64)
+            .fill()
+            .map((_, i) => {
+              const angle = (i / 64) * Math.PI * 2;
+              return new THREE.Vector3(
+                Math.cos(angle) * data.distance,
+                0,
+                Math.sin(angle) * data.distance,
+              );
+            }),
+        ),
+        new THREE.LineBasicMaterial({
+          color: 0x444444,
+          transparent: true,
+          opacity: 0.3,
+        }),
+      );
+      orbit.rotation.x = Math.PI / 2;
+
+      // Add rings for Saturn
+      if (data.rings) {
+        const ringTexture = await textureLoader.loadAsync(data.rings.texture);
+        const rings = new THREE.Mesh(
+          new THREE.RingGeometry(data.rings.inner, data.rings.outer, 64),
+          new THREE.MeshPhongMaterial({
+            map: ringTexture,
+            side: THREE.DoubleSide,
+            transparent: true,
+          }),
+        );
+        rings.rotation.x = Math.PI / 2;
+        planet.add(rings);
+      }
+
+      // Add moon for Earth
+      if (data.moon) {
+        const moonTexture = await textureLoader.loadAsync(
+          "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/moon.jpg",
+        );
+        const moon = new THREE.Mesh(
+          new THREE.SphereGeometry(data.moon.radius, 16, 16),
+          new THREE.MeshPhongMaterial({map: moonTexture}),
+        );
+        moon.position.x = data.moon.distance;
+        planet.add(moon);
+      }
+
+      scene.add(planet);
+      scene.add(orbit);
+      planets.set(data.name, planet);
+      orbits.set(data.name, orbit);
+    }
+
+    function createStarField() {
+      const stars = new THREE.BufferGeometry();
+      const starPositions = new Float32Array(10000 * 3);
+
+      for (let i = 0; i < 10000 * 3; i += 3) {
+        starPositions[i] = (Math.random() - 0.5) * 2000;
+        starPositions[i + 1] = (Math.random() - 0.5) * 2000;
+        starPositions[i + 2] = (Math.random() - 0.5) * 2000;
+      }
+
+      stars.setAttribute(
+        "position",
+        new THREE.BufferAttribute(starPositions, 3),
+      );
+      scene.add(
+        new THREE.Points(
+          stars,
+          new THREE.PointsMaterial({color: 0xffffff, size: 0.1}),
+        ),
+      );
+    }
+
+    function setupEventListeners() {
+      // Controls
+      document
+        .getElementById("showOrbits")
+        .addEventListener("change", (e) => {
+          orbits.forEach((orbit) => (orbit.visible = e.target.checked));
+        });
+
+      document
+        .getElementById("autoRotate")
+        .addEventListener("change", (e) => {
+          autoRotate = e.target.checked;
+          controls.autoRotate = e.target.checked;
+        });
+
+      document.getElementById("speed").addEventListener("input", (e) => {
+        simulationSpeed = parseFloat(e.target.value);
+      });
+
+      // Raycasting
+      window.addEventListener("click", (event) => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(scene.children);
+
+        if (intersects.length > 0) {
+          const planet = intersects[0].object;
+          const planetEntry = Array.from(planets.entries()).find(
+            ([_, p]) => p === planet || p.children.includes(planet),
+          );
+
+          if (planetEntry) {
+            const data = planetData.find((d) => d.name === planetEntry[0]);
+            showPlanetInfo(data);
+          }
+        }
+      });
+
+      // Resize
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+
+    function showPlanetInfo(data) {
+      const info = document.getElementById("planetInfo");
+      document.getElementById("planetName").textContent = data.name;
+      document.getElementById("planetDetails").textContent = `
+                Radius: ${(data.radius / SCALE_FACTOR).toLocaleString()} km
+                Distance from Sun: ${(data.distance / AU).toFixed(2)} AU
+                Orbital Period: ${(365 / data.speed).toFixed(1)} Earth days
+            `;
+      info.style.display = "block";
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const deltaTime = clock.getDelta() * simulationSpeed;
+
+      // Update planet positions
+      planetData.slice(1).forEach((data) => {
+        const planet = planets.get(data.name);
+        if (autoRotate) {
+          planet.position.x =
+            Math.cos(deltaTime * data.speed) * data.distance;
+          planet.position.z =
+            Math.sin(deltaTime * data.speed) * data.distance;
+        }
+        planet.rotation.y += 0.005 * simulationSpeed;
+      });
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // Start the simulation
+    const clock = new THREE.Clock();
+    init();
+  </script>
+</body>
+
 </html>
