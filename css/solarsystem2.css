@@ -1,0 +1,18 @@
+*{
+  background-color: balck;
+  margin: 0;
+  align-items: center;
+  overflow: hidden;
+}
+.solar-sys{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+.sun{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+
